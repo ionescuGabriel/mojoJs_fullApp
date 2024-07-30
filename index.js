@@ -1,5 +1,5 @@
 import mojo, {yamlConfigPlugin} from '@mojojs/core';
-import User from './models/user.js';
+import Users from './models/users.js';
 import Pg from '@mojojs/pg';
 
 export const app = mojo
@@ -9,7 +9,20 @@ export const app = mojo
     secrets: ['5328375']
 });
 
-app.models.user = new User();
+app.plugin(yamlConfigPlugin);
+app.secrets = app.config.secrets;
+
+// app.onStart(async app => {
+//     if (app.models.pg === undefined)
+//         app.models.pg = new Pg(app.config.pg);
+//     app.models.posts = new Posts(app.models.pg);
+  
+//     const migrations = app.models.pg.migrations;
+//     await migrations.fromFile(app.home.child('migrations', 'blog.sql'), {name: 'blog'});
+//     await migrations.migrate();
+//   });
+
+app.models.user = new Users();
 
 app.any('/').to('login#index').name('index');
 app.get('/logout').to('login#logout');

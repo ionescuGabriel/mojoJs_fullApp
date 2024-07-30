@@ -1,4 +1,4 @@
-export default class User {
+export default class Users {
   constructor() {
     this._data = {
       joel: 'las3rs',
