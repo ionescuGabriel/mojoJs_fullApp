@@ -8,7 +8,8 @@ export default class User {
   }
 
   check(user, pass) {
-    if(this._data[user] === undefined) return false;
+    if(this._data[user] === undefined)
+      return false;
     return this._data[user] === pass;
   }
 }
