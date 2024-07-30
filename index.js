@@ -1,5 +1,6 @@
 import mojo, {yamlConfigPlugin} from '@mojojs/core';
 import User from './models/user.js';
+import Pg from '@mojojs/pg';
 
 export const app = mojo
 ({

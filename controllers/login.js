@@ -6,7 +6,7 @@ export default class LoginController {
     const pass = params.get('pass');
 
     if (ctx.models.user.check(user, pass) === false)
-      return await ctx.render({view: 'index'});
+      return await ctx.render();
 
     const session = await ctx.session();
     session.user = user;
@@ -24,7 +24,7 @@ export default class LoginController {
   }
 
   async protected(ctx) {
-    await ctx.render({view: 'protected'});
+    await ctx.render();
   }
 
   async logout(ctx) {
