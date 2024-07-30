@@ -66,7 +66,7 @@ app.get('/logout', async ctx => {
   
 //     // Failed
 //     return await ctx.render({text: 'Wrong username or password.'});
-//   });a
+//   });
 
 app.start();
 
