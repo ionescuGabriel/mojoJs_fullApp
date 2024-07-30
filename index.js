@@ -1,5 +1,5 @@
 import mojo, {yamlConfigPlugin} from '@mojojs/core';
-import Users from './models/users.js';
+import User from './models/user.js';
 
 export const app = mojo
 ({
@@ -8,16 +8,15 @@ export const app = mojo
     secrets: ['Mojolicious rocks']
 });
 
-app.models.users = new Users();
+app.models.user = new User();
 
 app.any('/', async ctx => {
 
-    // Query or POST parameters
     const params = await ctx.params();
     const user = params.get('user');
     const pass = params.get('pass');
 
-    if (ctx.models.users.check(user, pass) === false)
+    if (ctx.models.user.check(user, pass) === false)
     {
         return await ctx.render({inline: indexTemplate, inlineLayout: defaultLayout});
     }
@@ -33,7 +32,6 @@ app.any('/', async ctx => {
 
 const loggedIn = app.under('/').to(async ctx => {
 
-    // Redirect to main page with a 302 response if user is not logged in
     const session = await ctx.session();
     if (session.user !== undefined) return;
     await ctx.redirectTo('index');
