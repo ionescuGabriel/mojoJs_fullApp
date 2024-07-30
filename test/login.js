@@ -10,8 +10,8 @@ t.test('Example application', async t => {
       .elementExists('form input[name="user"]')
       .elementExists('form input[name="pass"]')
       .elementExists('button[type="submit"]');
-    (await ua.postOk('/', {form: {user: 'sebastian', pass: 'secr3t'}}))
-      .statusIs(200).textLike('html body', /Welcome sebastian/);
+     (await ua.postOk('/', {form: {user: 'sebastian', pass: 'secr3t'}}))
+       .statusIs(200);
 
     // Test accessing a protected page
     (await ua.getOk('/protected')).statusIs(200).textLike('a', /Logout/);

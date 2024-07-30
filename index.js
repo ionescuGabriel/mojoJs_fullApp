@@ -5,10 +5,16 @@ export const app = mojo
 ({
     exceptionFormat: 'html',
     mode: 'development',
-    secrets: ['Mojolicious rocks']
+    secrets: ['5328375']
 });
 
 app.models.user = new User();
+
+//app.any('/').to('login#index').name('index');
+app.get('/logout').to('login#logout');
+
+const loggedIn = app.under('/').to('login#loggedIn');
+//loggedIn.get('/protected').to('login#protected');
 
 app.any('/', async ctx => {
 
@@ -18,7 +24,6 @@ app.any('/', async ctx => {
 
     if (ctx.models.user.check(user, pass) === false)
     {
-        //return await ctx.render({inline: indexTemplate, inlineLayout: defaultLayout});
         return await ctx.render({view: 'index'});
     }
     
@@ -31,25 +36,8 @@ app.any('/', async ctx => {
     await ctx.redirectTo('protected');
 }).name('index');
 
-const loggedIn = app.under('/').to(async ctx => {
-
-    const session = await ctx.session();
-    if (session.user !== undefined) return;
-    await ctx.redirectTo('index');
-    return false;
-});
-
 loggedIn.get('/protected').to(async ctx => {
-    //await ctx.render({inline: protectedTemplate, inlineLayout: defaultLayout});
     await ctx.render({view: 'protected'});
-});
-
-app.get('/logout', async ctx => {
-
-    const session = await ctx.session();
-    session.expires = 1;
-  
-    await ctx.redirectTo('index');
 });
 
 app.start();
