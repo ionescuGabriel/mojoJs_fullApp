@@ -1,6 +1,6 @@
 export default class LoginController {
 
-  async index(ctx) {
+  async index(ctx) {                      //fixeit
     const params = await ctx.params();
     const user = params.get('user');
     const pass = params.get('pass');
@@ -23,7 +23,7 @@ export default class LoginController {
   }
 
   async protected(ctx) {
-    await ctx.render();
+    await ctx.render({view: 'protected'});
   }
 
   async logout(ctx) {

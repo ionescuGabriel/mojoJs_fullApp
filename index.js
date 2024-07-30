@@ -14,7 +14,7 @@ app.models.user = new User();
 app.get('/logout').to('login#logout');
 
 const loggedIn = app.under('/').to('login#loggedIn');
-//loggedIn.get('/protected').to('login#protected');
+loggedIn.get('/protected').to('login#protected');
 
 app.any('/', async ctx => {
 
@@ -35,9 +35,5 @@ app.any('/', async ctx => {
 
     await ctx.redirectTo('protected');
 }).name('index');
-
-loggedIn.get('/protected').to(async ctx => {
-    await ctx.render({view: 'protected'});
-});
 
 app.start();
