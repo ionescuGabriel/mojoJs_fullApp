@@ -1,11 +1,12 @@
 export default class LoginController {
 
-  async index(ctx) {                      //fixeit
+  async index(ctx) {
     const params = await ctx.params();
     const user = params.get('user');
     const pass = params.get('pass');
 
-    if (ctx.models.users.check(user, pass) === false) return await ctx.render();
+    if (ctx.models.user.check(user, pass) === false)
+      return await ctx.render({view: 'index'});
 
     const session = await ctx.session();
     session.user = user;
