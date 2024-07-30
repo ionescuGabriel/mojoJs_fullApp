@@ -1,0 +1,12 @@
+% const params = await ctx.params();
+<form method="post">
+  % if (params.get('user') !== null) {
+    <b>Wrong name or password, please try again.</b><br>
+  % }
+  User:<br>
+  <input name="user">
+  <br>Password:<br>
+  <input type="password" name="pass">
+  <br>
+  <button type="submit">Log in</button>
+</form>
