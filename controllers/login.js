@@ -77,6 +77,7 @@ export default class LoginController {
   async account(ctx) 
   {
     ctx.stash.users = await ctx.models.users.find(ctx.stash.id);
+    ctx.stash.posts = await ctx.models.posts.find(ctx.stash.users.id);
     await ctx.render();
   }
   

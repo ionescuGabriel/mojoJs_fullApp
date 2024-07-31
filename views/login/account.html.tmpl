@@ -1,2 +1,9 @@
 
 <%= users.username %>#<%= users.id %>'s account<br>
+Posts:<br>
+
+<ul>
+    <% for (const post of posts) { %>
+        <li><%= `${post.sender_id}: ${post.post_text}` %></li>
+    <% } %>
+</ul>
