@@ -73,4 +73,11 @@ export default class LoginController {
     session.expires = 1;
     await ctx.redirectTo('index');
   }
+
+  async account(ctx) 
+  {
+    ctx.stash.users = await ctx.models.users.find(ctx.stash.id);
+    await ctx.render();
+  }
+  
 }

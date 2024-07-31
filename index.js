@@ -29,5 +29,7 @@ app.get('/logout').to('login#logout');
 
 const loggedIn = app.under('/').to('login#loggedIn');
 loggedIn.get('/protected').to('login#protected');
+loggedIn.get('/users/:id').to('login#account').name('account');
+
 
 app.start();

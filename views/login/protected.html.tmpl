@@ -11,6 +11,6 @@ Welcome <%= session.user %>!<br>
 Registered users:<br>
 <ul>
   <% for (const user of users) { %>   <!-- users referenced from thin air whoosh -->
-    <li><a href="#"><%= `${user.username}#${user.id}` %></a></li>
+    <li><%= await tags.linkTo(['account', {values: {id: user.id}}], {class: 'username'}, `${user.username}#${user.id}`) %></li>   <!-- This, just this line -->
   <% }; %>
 </ul>
