@@ -1,15 +1,42 @@
 export default class Users {
-  constructor() {
-    this._data = {
-      joel: 'las3rs',
-      marcus: 'lulz',
-      sebastian: 'secr3t'
-    };
+  constructor(pg)
+  {
+    this.pg = pg;
   }
 
-  check(user, pass) {
-    if(this._data[user] === undefined)
+  async add(user)
+  {
+    return (await this.pg.query`INSERT INTO users (username, pw) VALUES (${user.username}, ${user.pw}) RETURNING id`)
+      .first.id;  
+  }
+
+  async all()
+  {
+    return await this.pg.query`SELECT * FROM users`;
+  }
+
+  async find(id)
+  {
+    return (await this.pg.query`SELECT * FROM users WHERE id = ${id}`)
+      .first;
+  }
+
+  async check(user, pass)
+  {
+    const [username, id] = user.split('#');
+
+    if (isNaN(id))
+    {
       return false;
-    return this._data[user] === pass;
+    }
+
+    const userData = await this.find(id);
+
+    if (!userData || userData.username !== username || userData.pw !== pass)
+    {
+      return false;
+    }
+
+    return true;
   }
 }

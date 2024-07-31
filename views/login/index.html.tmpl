@@ -1,12 +1,31 @@
+<!-- Refactor as a single form with 2 buttons -->
+
 % const params = await ctx.params();
+% const flash = await ctx.flash();
+% const message = flash.message || '';
+
 <form method="post">
-  % if (params.get('user') !== null) {
-    <b>Wrong name or password, please try again.</b><br>
+  % if (params.get('action') === 'login' && message) {
+    <b><%= message %></b><br>
   % }
-  User:<br>
+  Username:<br>
   <input name="user">
   <br>Password:<br>
   <input type="password" name="pass">
   <br>
+  <input type="hidden" name="action" value="login">
   <button type="submit">Log in</button>
+</form>
+<br><br>
+<form method="post">
+  % if (params.get('action') === 'register' && message) {
+    <b><%= message %></b><br>
+  % }
+  Create username:<br>
+  <input name="user">
+  <br>Create password:<br>
+  <input type="password" name="pass">
+  <br>
+  <input type="hidden" name="action" value="register">
+  <button type="submit">Register</button>
 </form>

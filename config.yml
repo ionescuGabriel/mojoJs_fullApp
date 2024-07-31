@@ -1,3 +1,4 @@
 ---
+pg: postgresql://postgres:abibas767@127.0.0.1:5432/postgres #uhh...
 secrets:
   - 654f6fdc6508ac81926d73160102e8a4

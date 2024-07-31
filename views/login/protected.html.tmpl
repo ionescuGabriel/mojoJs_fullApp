@@ -3,5 +3,5 @@
   <b><%= flash.message %></b><br>
 % }
 % const session = await ctx.session();
-Welcome <%= session.user %>.<br>
+Welcome <%= session.user %>!<br>
 %= await tags.linkTo('logout', {}, 'Logout')

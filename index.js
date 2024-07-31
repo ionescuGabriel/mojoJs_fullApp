@@ -1,5 +1,6 @@
 import mojo, {yamlConfigPlugin} from '@mojojs/core';
 import Users from './models/users.js';
+import Posts from './models/posts.js';
 import Pg from '@mojojs/pg';
 
 export const app = mojo
@@ -12,17 +13,16 @@ export const app = mojo
 app.plugin(yamlConfigPlugin);
 app.secrets = app.config.secrets;
 
-// app.onStart(async app => {
-//     if (app.models.pg === undefined)
-//         app.models.pg = new Pg(app.config.pg);
-//     app.models.posts = new Posts(app.models.pg);
+app.onStart(async app => {
+    if (app.models.pg === undefined)
+        app.models.pg = new Pg(app.config.pg);
+    app.models.users = new Users(app.models.pg);
+    app.models.posts = new Posts(app.models.pg);
   
-//     const migrations = app.models.pg.migrations;
-//     await migrations.fromFile(app.home.child('migrations', 'blog.sql'), {name: 'blog'});
-//     await migrations.migrate();
-//   });
-
-app.models.user = new Users();
+    const migrations = app.models.pg.migrations;
+    await migrations.fromFile(app.home.child('migrations', 'userboard.sql'), {name: 'userboard'});
+    await migrations.migrate();
+  });
 
 app.any('/').to('login#index').name('index');
 app.get('/logout').to('login#logout');
