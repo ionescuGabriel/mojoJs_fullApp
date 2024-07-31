@@ -1,7 +1,16 @@
+% stash.title = "all";
 % const flash = await ctx.flash();
 % if (flash.message != null) {
   <b><%= flash.message %></b><br>
 % }
 % const session = await ctx.session();
 Welcome <%= session.user %>!<br>
-%= await tags.linkTo('logout', {}, 'Logout')
+<%= await tags.linkTo('logout', {}, 'Logout') %>
+
+<br><br>
+Registered users:<br>
+<ul>
+  <% for (const user of users) { %>   <!-- users referenced from thin air whoosh -->
+    <li><a href="#"><%= `${user.username}#${user.id}` %></a></li>
+  <% }; %>
+</ul>

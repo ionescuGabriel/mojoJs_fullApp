@@ -12,7 +12,8 @@ export default class Users {
 
   async all()
   {
-    return await this.pg.query`SELECT * FROM users`;
+    const result = await this.pg.query`SELECT * FROM users`;
+    return result;
   }
 
   async find(id)

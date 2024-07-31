@@ -55,13 +55,15 @@ export default class LoginController {
   async loggedIn(ctx)       //check for session
   {
     const session = await ctx.session();
-    if (session.user !== undefined) return;
+    if (session.user !== undefined)
+      return;
     await ctx.redirectTo('index');
     return false;
   }
 
   async protected(ctx)
   {
+    ctx.stash.users = await ctx.models.users.all();   // this is incredibly vague y no await ctx.render({users})
     await ctx.render();
   }
 
