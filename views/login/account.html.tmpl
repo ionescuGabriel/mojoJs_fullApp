@@ -1,18 +1,18 @@
+% const params = await ctx.params();
 
 <%= users.username %>#<%= users.id %>'s account<br>
 Posts:<br>
-
 <ul>
     <% if (posts && posts.length) { %>
-        <% for (const post of posts) { %>
-            <li><%= `${post.sender_id}: ${post.post_text}` %></li>
+        <% for (let i = 0; i<posts.length; i++) { %>
+            <li><%= `${usernames[i].username}#${posts[i].sender_id}: ${posts[i].post_text}` %></li>
         <% } %>
     <% } %>
 </ul>
 <br><br>
 
 <form method="post">
-    Post:<br>
-    <input name="post_body"><br>
-    <button type="submit">Submit</button>
+Post:<br>
+<input name="post_body"><br>
+<button type="submit">Submit</button>
 </form>

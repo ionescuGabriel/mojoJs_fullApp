@@ -78,7 +78,30 @@ export default class LoginController {
   {
     ctx.stash.users = await ctx.models.users.find(ctx.stash.id);
     ctx.stash.posts = await ctx.models.posts.find(ctx.stash.users.id);
+    const posts = ctx.stash.posts;
+    const usernames = [];
+    for (let i=0; i<posts.length; i++)
+    {
+      const senderId = posts[i].sender_id;
+      const sender = await ctx.models.users.find(senderId);
+      usernames.push({username: sender.username});
+    }
+    ctx.stash.usernames = usernames;
     await ctx.render();
   }
   
+  async create(ctx)
+  {
+    const params = await ctx.params();
+
+    const body = params.get('post_body');
+    const receiver = ctx.stash.id;
+
+    const session = await ctx.session();
+    const activeUser = session.user;
+    const [placeHolder, id] = activeUser.split('#');
+
+    const post_id = await ctx.models.posts.add({ sender_id: id, receiver_id: receiver, post_text: body});
+    await ctx.redirectTo('protected');
+  }
 }

@@ -20,7 +20,7 @@ app.onStart(async app => {
     app.models.posts = new Posts(app.models.pg);
   
     const migrations = app.models.pg.migrations;
-    await migrations.fromFile(app.home.child('migrations', 'userboard.sql'), {name: 'userboard'});
+    await migrations.fromFile(app.home.child('migrations', 'userboards.sql'), {name: 'userboards'});
     await migrations.migrate();
   });
 
@@ -30,6 +30,6 @@ app.get('/logout').to('login#logout');
 const loggedIn = app.under('/').to('login#loggedIn');
 loggedIn.get('/protected').to('login#protected');
 loggedIn.get('/users/:id').to('login#account').name('account');
-
+loggedIn.post('/users/:id').to('login#create').name('create');
 
 app.start();

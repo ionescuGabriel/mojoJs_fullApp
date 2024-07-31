@@ -18,12 +18,12 @@ drop table if exists users;
 
 
 -- 2 up
-create table if not exists users_posts (
-  post_id serial primary key,
-  sender_id integer references users(id),
-  receiver_id integer references users(id),
+create table if not exists users_post (
+  id serial primary key,
+  sender_id integer,
+  receiver_id integer,
   post_text text
 );
 
 -- 2 down
-drop table if exists users_posts;
+drop table if exists users_post;
