@@ -3,7 +3,16 @@
 Posts:<br>
 
 <ul>
-    <% for (const post of posts) { %>
-        <li><%= `${post.sender_id}: ${post.post_text}` %></li>
+    <% if (posts && posts.length) { %>
+        <% for (const post of posts) { %>
+            <li><%= `${post.sender_id}: ${post.post_text}` %></li>
+        <% } %>
     <% } %>
 </ul>
+<br><br>
+
+<form method="post">
+    Post:<br>
+    <input name="post_body"><br>
+    <button type="submit">Submit</button>
+</form>
